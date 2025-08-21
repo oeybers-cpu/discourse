@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Disciplinary Literacy</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-dark: #0a0a14;
+            --text-light: #f0f0f0;
+            --accent-aqua: #00ffff;
+            --accent-aqua-dark: #008b8b;
+            --card-bg: #1a1a2e;
+            --gold-light: #FFD700;
+            --gold-dark: #DAA520;
+            --card-border: #00ffff33;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(0, 255, 255, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(0, 255, 255, 0.05) 0%, transparent 20%);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 20px;
+            position: relative;
+        }
+        
+        h1 {
+            color: var(--accent-aqua);
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+            letter-spacing: 1px;
+        }
+        
+        .subtitle {
+            color: #a0f0f0;
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 20px;
+        }
+        
+        .header-image {
+            max-width: 500px;
+            margin: 20px auto;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--accent-aqua-dark);
+        }
+        
+        .header-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        .models-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        
+        .model-card {
+            background: linear-gradient(145deg, var(--card-bg), #161627);
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+            transition: all 0.3s ease;
+            border: 1px solid var(--card-border);
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .model-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--accent-aqua), transparent);
+            opacity: 0.7;
+        }
+        
+        .model-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.6), 0 0 15px rgba(0, 255, 255, 0.3);
+        }
+        
+        .model-card h3 {
+            color: var(--accent-aqua);
+            margin-top: 0;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--accent-aqua-dark);
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .model-card h3 i {
+            font-size: 1.3rem;
+        }
+        
+        .key-points {
+            list-style-type: none;
+        }
+        
+        .key-points li {
+            margin-bottom: 12px;
+            padding-left: 25px;
+            position: relative;
+        }
+        
+        .key-points li:before {
+            content: '•';
+            color: var(--accent-aqua);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+        
+        .centered-card {
+            grid-column: 1 / span 2;
+            justify-self: center;
+            width: calc(70% - 12.5px);
+            margin-top: 10px;
+        }
+        
+        .key-differences {
+            background: linear-gradient(145deg, var(--card-bg), #161627);
+            border-radius: 12px;
+            padding: 25px;
+            margin: 30px 0;
+            border: 1px solid var(--card-border);
+            position: relative;
+        }
+        
+        .key-differences h2 {
+            color: var(--accent-aqua);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .key-differences p {
+            line-height: 1.7;
+            margin-bottom: 15px;
+        }
+        
+        .pyramid-container {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            width: 100px;
+            height: 100px;
+            perspective: 600px;
+            z-index: 1;
+        }
+        
+        .pyramid {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+            animation: rotate 12s infinite linear;
+        }
+        
+        .pyramid-face {
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-left: 50px solid transparent;
+            border-right: 50px solid transparent;
+            border-bottom: 87px solid rgba(255, 215, 0, 0.7);
+            opacity: 0.8;
+            animation: glitter 2.5s infinite alternate;
+        }
+        
+        .pyramid-face:nth-child(1) {
+            transform: rotateY(0deg) translateZ(25px) rotateX(30deg);
+            border-bottom-color: rgba(255, 215, 0, 0.7);
+        }
+        
+        .pyramid-face:nth-child(2) {
+            transform: rotateY(90deg) translateZ(25px) rotateX(30deg);
+            border-bottom-color: rgba(218, 165, 32, 0.7);
+        }
+        
+        .pyramid-face:nth-child(3) {
+            transform: rotateY(180deg) translateZ(25px) rotateX(30deg);
+            border-bottom-color: rgba(255, 215, 0, 0.7);
+        }
+        
+        .pyramid-face:nth-child(4) {
+            transform: rotateY(270deg) translateZ(25px) rotateX(30deg);
+            border-bottom-color: rgba(218, 165, 32, 0.7);
+        }
+        
+        @keyframes rotate {
+            from {
+                transform: rotateY(0deg) rotateX(15deg);
+            }
+            to {
+                transform: rotateY(360deg) rotateX(15deg);
+            }
+        }
+        
+        @keyframes glitter {
+            0% {
+                filter: drop-shadow(0 0 2px var(--gold-light));
+            }
+            100% {
+                filter: drop-shadow(0 0 8px var(--gold-dark)) 
+                       drop-shadow(0 0 16px var(--gold-light));
+            }
+        }
+        
+        .links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+        
+        .link-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(to right, var(--accent-aqua-dark), var(--accent-aqua));
+            color: var(--bg-dark);
+            padding: 12px 24px;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+        
+        .link-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4), 0 0 15px rgba(0, 255, 255, 0.5);
+        }
+        
+        .quote-box {
+            background: rgba(0, 255, 255, 0.1);
+            border-left: 4px solid var(--accent-aqua);
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 4px;
+            font-style: italic;
+        }
+        
+        .definition-box {
+            background: rgba(26, 26, 46, 0.7);
+            border: 1px solid var(--accent-aqua);
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+        
+        .definition-box h4 {
+            color: var(--accent-aqua);
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+        
+        @media (max-width: 900px) {
+            .models-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .centered-card {
+                grid-column: 1;
+                width: 100%;
+            }
+            
+            .pyramid-container {
+                position: relative;
+                margin: 20px auto;
+                top: 0;
+                right: 0;
+            }
+            
+            .header-image {
+                max-width: 300px;
+            }
+        }
+        
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .subtitle {
+                font-size: 1rem;
+            }
+            
+            .model-card {
+                padding: 20px;
+            }
+            
+            .links {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .link-button {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .header-image {
+                max-width: 250px;
+            }
+        }
+        
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background-color: rgba(0, 255, 255, 0.5);
+            border-radius: 50%;
+            animation: float 15s infinite linear;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(0) translateX(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) translateX(100px);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="particles" id="particles"></div>
+    
+    <div class="container">
+        <header>
+            <h1>Disciplinary Literacy</h1>
+            <p class="subtitle">Understanding the specialized knowledge and abilities possessed by those who create, communicate, and use knowledge within academic disciplines</p>
+            
+            <!-- Embedded image near the top -->
+            <div class="header-image">
+                <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" 
+                     alt="Disciplinary Literacy Visual Representation">
+            </div>
+        </header>
+        
+        <div class="pyramid-container">
+            <div class="pyramid">
+                <div class="pyramid-face"></div>
+                <div class="pyramid-face"></div>
+                <div class="pyramid-face"></div>
+                <div class="pyramid-face"></div>
+            </div>
+        </div>
+        
+        <div class="models-grid">
+            <div class="model-card">
+                <h3><i class="fas fa-microscope"></i> What is Disciplinary Literacy?</h3>
+                <ul class="key-points">
+                    <li>Focuses on specialized ways of reading, writing, and thinking in academic disciplines</li>
+                    <li>Emphasizes the unique tools experts use to engage in disciplinary work</li>
+                    <li>Goes beyond general study skills to address discipline-specific practices</li>
+                    <li>Based on research comparing experts and novices across disciplines</li>
+                    <li>Rooted in functional linguistics and cognitive science research</li>
+                </ul>
+            </div>
+            
+            <div class="model-card">
+                <h3><i class="fas fa-balance-scale"></i> Disciplinary vs. Content Area Literacy</h3>
+                <ul class="key-points">
+                    <li>Content area literacy focuses on general study skills applicable across subjects</li>
+                    <li>Disciplinary literacy emphasizes unique practices within each discipline</li>
+                    <li>Content literacy = how novices approach texts</li>
+                    <li>Disciplinary literacy = how experts create and use knowledge</li>
+                    <li>Different approaches to vocabulary, text structure, and author awareness</li>
+                </ul>
+            </div>
+            
+            <div class="model-card centered-card">
+                <h3><i class="fas fa-graduation-cap"></i> Why Disciplinary Literacy Matters</h3>
+                <ul class="key-points">
+                    <li>Helps students become disciplinary insiders rather than passive consumers</li>
+                    <li>Prepares students for college and career literacy demands</li>
+                    <li>Addresses the unique reading challenges of different academic subjects</li>
+                    <li>Supports the development of critical thinking within disciplines</li>
+                    <li>Aligns with Common Core State Standards for disciplinary literacy</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="key-differences">
+            <h2><i class="fas fa-star"></i> Key Concepts in Disciplinary Literacy</h2>
+            
+            <div class="definition-box">
+                <h4>Disciplinary Literacy Definition</h4>
+                <p>"An emphasis on the knowledge and abilities possessed by those who create, communicate, and use knowledge within the disciplines. The difference is that content literacy emphasizes techniques that a novice might use to make sense of a disciplinary text, whereas disciplinary literacy emphasizes the unique tools that the experts in a discipline use to engage in the work of that discipline." (Shanahan & Shanahan, 2012)</p>
+            </div>
+            
+            <p>Research has revealed that disciplines differ extensively in their fundamental purposes, specialized genres, symbolic artifacts, traditions of communication, evaluation standards of quality and precision, and use of language.</p>
+            
+            <h3 style="color: var(--accent-aqua); margin: 20px 0 10px;">Disciplinary Differences in Reading Practices</h3>
+            
+            <div class="model-card" style="margin: 15px 0;">
+                <h4><i class="fas fa-history"></i> History</h4>
+                <ul class="key-points">
+                    <li>Focuses on sourcing (considering the author's perspective and bias)</li>
+                    <li>Emphasizes contextualization (connecting texts to historical circumstances)</li>
+                    <li>Requires corroboration (comparing across multiple sources)</li>
+                    <li>Uses metaphorical and interpretive language</li>
+                </ul>
+            </div>
+            
+            <div class="model-card" style="margin: 15px 0;">
+                <h4><i class="fas fa-flask"></i> Science</h4>
+                <ul class="key-points">
+                    <li>Relies on precise technical vocabulary with Greek/Latin roots</li>
+                    <li>Uses nominalization (turning processes into nouns like "evaporation")</li>
+                    <li>Emphasizes classification and description of phenomena</li>
+                    <li>Presents information through a combination of prose, equations, and graphics</li>
+                </ul>
+            </div>
+            
+            <div class="model-card" style="margin: 15px 0;">
+                <h4><i class="fas fa-square-root-alt"></i> Mathematics</h4>
+                <ul class="key-points">
+                    <li>Uses dense symbolic notation alongside natural language</li>
+                    <li>Requires precision in language and logical progression</li>
+                    <li>Emphasizes deductive reasoning and proof</li>
+                    <li>Minimizes focus on author identity in interpretation</li>
+                </ul>
+            </div>
+            
+            <div class="quote-box">
+                "The aim of disciplinary literacy is to identify all such reading- and writing-relevant distinctions among the disciplines and to find ways of teaching students to negotiate successfully these literacy aspects of the disciplines. It is an effort, ultimately, to transform students into disciplinary insiders who are able to approach literacy tasks with some sense of agency and with a set of responses and moves that are appropriate to the specialized purposes, demands, and mores of the disciplines." (Shanahan & Shanahan, 2012)
+            </div>
+        </div>
+        
+        <div class="links">
+            <a href="https://www.researchgate.net/publication/47243336_The_Academic_Literacies_Model_Theory_and_Applications" class="link-button" target="_blank">
+                <i class="fas fa-external-link-alt"></i> Read the Full Article
+            </a>
+            <a href="https://ila.onlinelibrary.wiley.com/doi/full/10.1002/JAAL.190?casa_token=vK9xQEndzM0AAAAA%3AUYiPv1wzYHpDMVfEfUy3znZpRRhzB5E6M1GqI0knApV9MgAlziCh2w0xAmbth4HS98fq38wYCi216VQ" class="link-button" target="_blank">
+                <i class="fas fa-book"></i> Disciplinary Literacy
+            </a>
+            <a href="https://oeybers-cpu.github.io/oe_research/" class="link-button">
+                <i class="fas fa-book-open"></i> Go to Eybers Articles
+            </a>
+            <a href="https://oeybers-cpu.github.io/chapters/" class="link-button">
+                <i class="fas fa-file-alt"></i> Eybers Chapters
+            </a>
+            <a href="https://oeybers-cpu.github.io/basicskills/" class="link-button">
+                <i class="fas fa-file-alt"></i> Basic Skills Model
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // Create floating particles for background
+        document.addEventListener('DOMContentLoaded', function() {
+            const particlesContainer = document.getElementById('particles');
+            const particlesCount = 50;
+            
+            for (let i = 0; i < particlesCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // Random properties
+                const size = Math.random() * 3 + 1;
+                const posX = Math.random() * 100;
+                const posY = Math.random() * 100;
+                const delay = Math.random() * 15;
+                const duration = 15 + Math.random() * 10;
+                
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.left = `${posX}vw`;
+                particle.style.top = `${posY}vh`;
+                particle.style.animationDelay = `${delay}s`;
+                particle.style.animationDuration = `${duration}s`;
+                
+                particlesContainer.appendChild(particle);
+            }
+            
+            // Enhance pyramid glitter effect
+            const faces = document.querySelectorAll('.pyramid-face');
+            
+            setInterval(() => {
+                faces.forEach(face => {
+                    face.style.animationDelay = `${Math.random() * 2}s`;
+                });
+            }, 2000);
+        });
+    </script>
+</body>
+</html>
