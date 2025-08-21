@@ -185,7 +185,8 @@
             border-radius: 8px;
             padding: 20px;
             border: 1px solid var(--accent-aqua);
-            height: 220px;
+            height: auto;
+            position: relative;
         }
         
         .discipline-card h4 {
@@ -195,6 +196,36 @@
             display: flex;
             align-items: center;
             gap: 8px;
+        }
+        
+        /* New Science-specific card with image */
+        .science-card {
+            grid-column: span 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .science-image-container {
+            margin-top: 15px;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid var(--accent-aqua);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            flex-shrink: 0;
+        }
+        
+        .science-image-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        .science-image-caption {
+            text-align: center;
+            font-size: 0.8rem;
+            color: #a0f0f0;
+            margin-top: 8px;
+            font-style: italic;
         }
         
         .pyramid-container {
@@ -342,6 +373,10 @@
                 height: auto;
                 min-height: 250px;
             }
+            
+            .science-card {
+                grid-column: span 1;
+            }
         }
         
         @media (max-width: 600px) {
@@ -425,7 +460,7 @@
             <h1>Disciplinary Literacy</h1>
             <p class="subtitle">Understanding the specialized knowledge and abilities possessed by those who create, communicate, and use knowledge within academic disciplines</p>
             
-            <!-- Fixed image URL using raw.githubusercontent.com -->
+            <!-- Original image at the top -->
             <div class="header-image">
                 <img src="https://raw.githubusercontent.com/oeybers-cpu/discourse/f962410dd4f7d606af73496a6077a89ea7896806/seamstress%20africa.png" 
                      alt="Disciplinary Literacy Visual Representation"
@@ -500,7 +535,8 @@
                     </ul>
                 </div>
                 
-                <div class="discipline-card">
+                <!-- Science card with image -->
+                <div class="discipline-card science-card">
                     <h4><i class="fas fa-flask"></i> Science</h4>
                     <ul class="compact-points">
                         <li>Technical vocabulary with Greek/Latin roots</li>
@@ -508,6 +544,12 @@
                         <li>Emphasizes classification</li>
                         <li>Combines prose, equations, and graphics</li>
                     </ul>
+                    <div class="science-image-container">
+                        <img src="https://github.com/oeybers-cpu/discourse/blob/main/scientist.png?raw=true" 
+                             alt="Scientist at work"
+                             onerror="this.onerror=null; this.parentNode.innerHTML='<div style=\'height: 150px; display: flex; align-items: center; justify-content: center; color: #a0f0f0;\'><i class=\'fas fa-flask\' style=\'font-size: 3rem;\'></i></div>';">
+                    </div>
+                    <div class="science-image-caption">Scientific inquiry requires specialized literacy skills</div>
                 </div>
                 
                 <div class="discipline-card">
