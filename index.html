@@ -403,6 +403,18 @@
                 opacity: 0;
             }
         }
+        
+        .fallback-image {
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent-aqua);
+            font-size: 1rem;
+            text-align: center;
+            padding: 20px;
+            height: 250px;
+        }
     </style>
 </head>
 <body>
@@ -413,10 +425,11 @@
             <h1>Disciplinary Literacy</h1>
             <p class="subtitle">Understanding the specialized knowledge and abilities possessed by those who create, communicate, and use knowledge within academic disciplines</p>
             
-            <!-- Embedded image near the top -->
+            <!-- Fixed image URL using raw.githubusercontent.com -->
             <div class="header-image">
-                <img src="https://github.com/oeybers-cpu/discourse/blob/f01be90b32fab8328e05e4586860d13d505083e2/seamstress%20africa.png" 
-                     alt="Disciplinary Literacy Visual Representation">
+                <img src="https://raw.githubusercontent.com/oeybers-cpu/discourse/f962410dd4f7d606af73496a6077a89ea7896806/seamstress%20africa.png" 
+                     alt="Disciplinary Literacy Visual Representation"
+                     onerror="this.onerror=null; this.parentNode.innerHTML='<div class=\'fallback-image\'><div>Image not available<br><i class=\'fas fa-image\' style=\'font-size: 3rem; margin-top: 10px;\'></i><br><span style=\'font-size: 0.8rem;\'>Visual representation of disciplinary literacy concepts</span></div></div>';">
             </div>
         </header>
         
